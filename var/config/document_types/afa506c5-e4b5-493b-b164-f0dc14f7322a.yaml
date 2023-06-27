@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                afa506c5-e4b5-493b-b164-f0dc14f7322a:
+                    name: 'Footer Snippet'
+                    group: Footer
+                    controller: 'App\Controller\PagesController::footerCopyrightAction'
+                    template: null
+                    type: snippet
+                    priority: 0
+                    creationDate: 1687886046
+                    modificationDate: 1687886072
+                    staticGeneratorEnabled: false

@@ -1,0 +1,15 @@
+pimcore:
+    properties:
+        predefined:
+            definitions:
+                0df394d2-ec0d-4848-b4df-7beebc2ec61b:
+                    name: 'Navigation Root'
+                    description: 'This is navigation root for the current page. Change only if you want different menus appear in a page.'
+                    key: new_key
+                    type: document
+                    data: ''
+                    config: ''
+                    ctype: document
+                    inheritable: true
+                    creationDate: 1687888489
+                    modificationDate: 1687888617
