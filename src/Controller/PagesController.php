@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use Pimcore\Document\Renderer\DocumentRenderer;
 use Pimcore\Model\DataObject\BlogCategory;
 use Pimcore\Model\DataObject\BlogPost;
 use Pimcore\Model\Document;
@@ -9,6 +10,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PagesController extends BlogController
 {
+
+    public function __construct(DocumentRenderer $renderer)
+    {
+        parent::__construct($renderer);
+    }
 
     #[Route('/', name: 'homepage', methods: ['GET'])]
     public function homePageAction(): Response

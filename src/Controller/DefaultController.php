@@ -4,11 +4,18 @@ namespace App\Controller;
 
 use Pimcore\Bundle\AdminBundle\Controller\Admin\LoginController;
 use Pimcore\Controller\FrontendController;
+use Pimcore\Document\Renderer\DocumentRenderer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends BlogController
 {
+
+    public function __construct(DocumentRenderer $renderer)
+    {
+        parent::__construct($renderer);
+    }
+
     /**
      * @param Request $request
      * @return Response
