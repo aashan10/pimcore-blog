@@ -15,7 +15,7 @@ class DefaultController extends BlogController
      */
     public function defaultAction(Request $request): Response
     {
-        return $this->render('pages/home.html.twig');
+        return $this->render('default/default.html.twig');
     }
 
     /**

@@ -19,7 +19,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1687883036,
+   'modificationDate' => 1687890242,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -237,8 +237,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'icon' => '',
    'group' => '',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => '',
-   'previewGeneratorReference' => '',
+   'linkGeneratorReference' => '@App\\Website\\LinkGenerator\\BlogCategoryLinkGenerator',
+   'previewGeneratorReference' => '@App\\Website\\PreviewGenerator\\BlogCategoryPreviewGenerator',
    'compositeIndices' => 
   array (
   ),
