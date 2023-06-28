@@ -16,33 +16,5 @@
 {% endblock %}
 
 {% block main_content %}
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-
-                {% for post in posts %}
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="{{ '/blog/' ~ post.slug }}">
-                            <h2 class="post-title">{{ post.title }}</h2>
-                            <h3 class="post-subtitle">{{ post.subtitle }}</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted
-                            on {{ post.creationDate|date('F j, Y') }}
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4"/>
-
-                {% else %}
-                    <!-- Post preview-->
-                    <div class="mb-5">
-                        <h2 class="text-center">No posts found!</h2>
-                        <span class="d-block w-100 text-center">There were zero posts associated with this category.</span>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+    {% include 'includes/post/list.html.twig' with { posts: posts } %}
 {% endblock %}

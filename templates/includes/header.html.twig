@@ -22,8 +22,14 @@
             Menu
             <i class="fas fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav d-flex gap-5 ms-auto py-4 py-lg-0">
+
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarResponsive">
+            <div class="col-md-5 mx-5">
+                <form action="{{ path('search') }}" method="POST">
+                    <input value="{{ query | default('') }}" name="query" aria-labelledby="searchLabel" placeholder="Type and press enter to search.." class="form-control" type="text" />
+                </form>
+            </div>
+            <ul class="navbar-nav d-flex gap-5 py-4 py-lg-0">
                 {% for page in app_navigation %}
                     {# here need to manually check for ACL conditions #}
                     {% if page.isVisible() and menuRenderer.accept(page) %}

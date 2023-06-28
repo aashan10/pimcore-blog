@@ -1,0 +1,19 @@
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            {% for post in posts %}
+
+                {% include 'includes/post/preview.html.twig' with { post: post } %}
+
+                {% if not loop.last %}
+                    <hr class="my-4"/>
+                {% endif %}
+            {% else %}
+                <div class="mb-5">
+                    <h2 class="text-center">No posts found!</h2>
+                    <span class="d-block w-100 text-center">There are no posts to read yet!</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
