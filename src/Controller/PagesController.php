@@ -54,7 +54,12 @@ class PagesController extends BlogController
         }, $relations);
 
         $posts = new BlogPost\Listing();
-        $posts->setCondition('id IN (' . implode(',', $ids) . ')');
+
+        if (count($ids) > 0) {
+            $posts->setCondition('id IN (' . implode(',', $ids) . ')');
+        } else {
+            $posts->setCondition('id = 0'); // Always results in false as pimcore object ids start with 1
+        }
 
 
         return $this->render('pages/category/view.html.twig', [
@@ -64,7 +69,7 @@ class PagesController extends BlogController
     }
 
 
-    #[Route('/blogs/{slug}', name: 'blog_view', methods: ['GET'])]
+    #[Route('/blog/{slug}', name: 'blog_view', methods: ['GET'])]
     public function blogPostViewAction($slug): Response
     {
         $post = BlogPost::getBySlug($slug);

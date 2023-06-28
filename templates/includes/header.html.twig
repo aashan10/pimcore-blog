@@ -12,6 +12,7 @@
 {% set mainNavigation = pimcore_build_nav({active: document, root: navStartNode}) %}
 
 {% set menuRenderer = pimcore_nav_renderer('menu') %}
+{% set app_navigation = blog_navigation_generator(document, navStartNode) %}
 
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
     <div class="container px-4 px-lg-5">
@@ -22,8 +23,8 @@
             <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                {% for page in mainNavigation %}
+            <ul class="navbar-nav d-flex gap-5 ms-auto py-4 py-lg-0">
+                {% for page in app_navigation %}
                     {# here need to manually check for ACL conditions #}
                     {% if page.isVisible() and menuRenderer.accept(page) %}
                         {% set hasChildren = page.hasPages() %}

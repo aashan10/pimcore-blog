@@ -73,6 +73,13 @@ services:
         resource: '../src/Website/LinkGenerator/*'
         public: true
 
+    #
+    # Twig Extensions
+    #
+    App\Extensions\:
+        resource: '../src/Extensions/*'
+        public: true
+        tags: [ 'twig.extension' ]
 
     # Example custom templating helper
     # App\Templating\Helper\Example:
