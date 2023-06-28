@@ -1,5 +1,5 @@
 {% set navStartNode = document.getProperty('navigation_root') %}
-{% if not navStartNode is instanceof('\\Pimcore\\Model\\Document\\Page')  %}
+{% if not navStartNode is instanceof('\\Pimcore\\Model\\Document\\Page') %}
     {% if pimcore_site_is_request() %}
         {% set site = pimcore_site_current() %}
         {% set navStartNode = site.getRootDocument() %}
@@ -16,7 +16,8 @@
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="/">Pimcore Blog</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
         </button>
@@ -24,22 +25,36 @@
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
                 {% for page in mainNavigation %}
                     {# here need to manually check for ACL conditions #}
-                    {% if page.isVisible() and menuRenderer.accept(page)  %}
+                    {% if page.isVisible() and menuRenderer.accept(page) %}
                         {% set hasChildren = page.hasPages() %}
                         {% if not hasChildren %}
                             <li class="nav-item">
-                                <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ page.getHref() }}">{{ page.getLabel()|trans }}</a>
+                                <a class="nav-link px-lg-3 py-3 py-lg-4"
+                                   href="{{ page.getHref() }}">{{ page.getLabel()|trans }}</a>
                             </li>
                         {% else %}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{{ page.getHref() }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ page.getLabel()|trans }}</a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li class="nav-item dropdown position-relative d-flex">
+
+                                <a class="btn d-flex align-items-center nav-link px-0 text-uppercase" href="{{ page.href }}">
+                                    {{ page.label | trans }}
+                                </a>
+                                <button type="button"
+                                        class="px-2 bg-transparent border-0 dropdown-toggle dropdown-toggle-split px-0"
+                                        data-target="navigationSubMenu{{ page.id }}">
+                                    <span class="visually-hidden">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu rounded top-100" id="navigationSubMenu{{ page.id }}">
+
                                     {% for child in page.getPages() %}
+
                                         {% if child.isVisible() and menuRenderer.accept(child) %}
-                                            <a class="dropdown-item" href="{{ child.getHref() }}">{{ child.getLabel()|trans }}</a>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                   href="{{ child.getHref() }}">{{ child.getLabel()|trans }}</a>
+                                            </li>
                                         {% endif %}
                                     {% endfor %}
-                                </div>
+                                </ul>
                             </li>
                         {% endif %}
                     {% endif %}
@@ -48,3 +63,23 @@
         </div>
     </div>
 </nav>
+
+<script defer>
+    let dropdowns = document.getElementsByClassName('dropdown-toggle');
+    for (let dropdown of dropdowns) {
+        dropdown.addEventListener('click', function () {
+            let target = document.getElementById(dropdown.dataset.target);
+            target.classList.toggle('show');
+        });
+    }
+
+    document.body.addEventListener('click', function (event) {
+        let target = event.target;
+        if (!target.classList.contains('dropdown-toggle')) {
+            let dropdowns = document.getElementsByClassName('dropdown-menu');
+            for (let dropdown of dropdowns) {
+                dropdown.classList.remove('show');
+            }
+        }
+    });
+</script>

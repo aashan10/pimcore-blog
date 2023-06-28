@@ -5,6 +5,7 @@ use Pimcore\Document\Renderer\DocumentRenderer;
 use Pimcore\Model\DataObject\BlogCategory;
 use Pimcore\Model\DataObject\BlogPost;
 use Pimcore\Model\Document;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -68,8 +69,10 @@ class PagesController extends BlogController
     {
         // Handle documents with conflicting routes
         $document = Document::getByPath('/' . $slug);
-        if ($document instanceof Document) {
-            return new Response($this->renderer->render($document), 200);
+        if ($document instanceof Document\PageSnippet) {
+            return new Response($this->renderer->render($document, [
+                'editmode' => 123
+            ]), 200);
         }
 
         // Handle blog posts
@@ -91,6 +94,30 @@ class PagesController extends BlogController
     public function footerCopyrightAction(): Response
     {
         return $this->render('includes/footer.html.twig');
+    }
+
+    public function renderStaticPageAction(): Response
+    {
+        return $this->render('pages/static-page.html.twig',[
+            'editmode' => $this->editmode
+        ]);
+    }
+
+    public function renderPostRenderlet(Request $request)
+    {
+        $id = $request->get('id');
+        $type = $request->get('type');
+
+        if ($type === 'object') {
+            $object = BlogPost::getById($id);
+            if ($object instanceof BlogPost) {
+                return $this->render('includes/post-renderlet.html.twig',[
+                    'editmode' => $this->editmode,
+                    'post' => $object
+                ]);
+            }
+        }
+        throw new \Exception('This renderlet only supports Blog Post objects!');
     }
 
 }

@@ -1,0 +1,79 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block page_banner %}
+
+    {% set banner_image = pimcore_image('banner_image') %}
+    {% set banner_heading = pimcore_input('banner_heading') %}
+    {% set banner_subheading = pimcore_input('banner_subheading') %}
+    {% if editmode %}
+        <div class="row">
+            <div class="col-12">
+                <h6>Banner Image</h6>
+                {{ banner_image | raw }}
+            </div>
+            <div class="col-12">
+                <h6>Banner Heading</h6>
+                {{ banner_heading | raw }}
+            </div>
+            <div class="col-12">
+                <h6>Banner Subheading</h6>
+                {{ banner_subheading | raw }}
+            </div>
+        </div>
+    {% else %}
+        {% set thumbnail = banner_image.getThumbnail({
+            height: 640,
+            width: 1280,
+
+        }) %}
+        {% set thumbnail_url = '' %}
+
+        {% if thumbnail is not empty %}
+            {% set thumbnail_url = thumbnail.path %}
+        {% endif %}
+        <header class="masthead" style="background-image: url('{{ thumbnail_url }}')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>{{ banner_heading.data}}</h1>
+                            <span class="subheading">{{ banner_subheading.data }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+    {% endif %}
+
+
+{% endblock %}
+
+
+{% block main_content %}
+
+
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                {% for i in pimcore_block('contentblock').iterator %}
+                    {% if editmode %}
+                        <h2>Content</h2>
+                    {% endif %}
+                    {{ pimcore_wysiwyg('content') }}
+
+                    {% if editmode %}
+
+                    {% endif %}
+                    {{ pimcore_renderlet('post', {
+                        controller: 'App\\Controller\\PagesController::renderPostRenderlet',
+                        reload: true,
+                        type: 'object',
+                        editmode: editmode
+                    }) }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

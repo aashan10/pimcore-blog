@@ -59,6 +59,19 @@ services:
         resource: '../src/Command/*'
         tags: [ 'console.command' ]
 
+    #
+    # Preview Generators
+    #
+    App\Website\PreviewGenerator\:
+        resource: '../src/Website/PreviewGenerator/*'
+        public: true
+
+    #
+    # Link Generators
+    #
+    App\Website\LinkGenerator\:
+        resource: '../src/Website/LinkGenerator/*'
+        public: true
 
 
     # Example custom templating helper

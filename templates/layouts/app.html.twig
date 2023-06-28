@@ -21,6 +21,18 @@
 <body>
 
 {% include 'includes/header.html.twig' %}
+
+{% if editmode %}
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    <strong>Warning!</strong> You are in edit mode. This is not visible for your visitors. Click the preview tab to see what your users actually see!
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 <!-- Page Header-->
 {% block page_banner %}
 {% endblock %}

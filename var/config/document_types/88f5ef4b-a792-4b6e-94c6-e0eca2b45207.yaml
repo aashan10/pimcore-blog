@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                88f5ef4b-a792-4b6e-94c6-e0eca2b45207:
+                    name: 'CMS Page'
+                    group: ''
+                    controller: 'App\Controller\PagesController::renderStaticPageAction'
+                    template: null
+                    type: page
+                    priority: 0
+                    creationDate: 1687938931
+                    modificationDate: 1687939386
+                    staticGeneratorEnabled: false
