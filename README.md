@@ -22,6 +22,7 @@ Once that is completed, visit `http://localhost/admin` and login with the creden
 - On the admin panel, go to `Documents` and create a folder named `snippets`.
 The folder name is not strict, so you can choose whatever name you like.
 - Now, right-click the folder and select `Add Snippet > Footer > Footer Snippet` and name it `footer`.
+- Inside the newly created document, place the information (like links, copyright information, address etc.) that you want to see in the footer section of the pages.
 - Click the root document and goto `Navigation & Properties` tab.
 - On the `Predefined Properties` dropdown at top, select `Footer Snippet`.
 - Now drag and drop the previously created `footer` snippet to the newly created entry in the pre-defied properties.
