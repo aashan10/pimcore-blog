@@ -5,6 +5,7 @@ namespace App\Controller;
 use Pimcore\Model\DataObject\BlogCategory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Pimcore\Model\DataObject\BlogPost;
 
 class CategoryController extends BlogController
 {

@@ -1,9 +1,13 @@
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="col-md-12">
             {% for post in posts %}
 
-                {% include 'includes/post/preview.html.twig' with { post: post } %}
+                {% if loop.first %}
+                    {% include 'includes/post-renderlet.html.twig' with { post: post } %}
+                {% else %}
+                    {% include 'includes/post/preview.html.twig' with { post: post } %}
+                {% endif %}
 
                 {% if not loop.last %}
                     <hr class="my-4"/>
