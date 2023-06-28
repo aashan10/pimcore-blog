@@ -12,7 +12,7 @@ class BlogPostLinkGenerator implements LinkGeneratorInterface
     public function generate(object $object, array $params = []): string
     {
         if ($object instanceof BlogPost && $object->getPublished()) {
-            return '/' . $object->getSlug();
+            return '/blogs/' . $object->getSlug();
         }
         throw new NotFoundHttpException();
     }

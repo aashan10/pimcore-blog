@@ -64,18 +64,9 @@ class PagesController extends BlogController
     }
 
 
-    #[Route('/{slug}', name: 'blog_view', methods: ['GET'])]
+    #[Route('/blogs/{slug}', name: 'blog_view', methods: ['GET'])]
     public function blogPostViewAction($slug): Response
     {
-        // Handle documents with conflicting routes
-        $document = Document::getByPath('/' . $slug);
-        if ($document instanceof Document\PageSnippet) {
-            return new Response($this->renderer->render($document, [
-                'editmode' => 123
-            ]), 200);
-        }
-
-        // Handle blog posts
         $post = BlogPost::getBySlug($slug);
         if ($post->count() < 1) {
             throw $this->createNotFoundException();

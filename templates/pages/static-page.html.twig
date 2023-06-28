@@ -52,27 +52,35 @@
 
 {% block main_content %}
 
-
+    {% if editmode %}
+        <div class="my-5">
+            <h1>Page Content</h1>
+            <p>Click the green + button to add sections to the page. You can add multiple sections for content!</p>
+        </div>
+    {% endif %}
     <div class="container px-4 px-lg-5">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <article class="col-md-12">
                 {% for i in pimcore_block('contentblock').iterator %}
-                    {% if editmode %}
-                        <h2>Content</h2>
-                    {% endif %}
-                    {{ pimcore_wysiwyg('content') }}
+                    <section class="w-100 d-flex flex-column">
+                        {% if editmode %}
+                            <h2>Section</h2>
+                        {% endif %}
+                        {{ pimcore_wysiwyg('content', {
+                            placeholder: 'Add content here...',
+                        }) }}
 
-                    {% if editmode %}
 
-                    {% endif %}
-                    {{ pimcore_renderlet('post', {
-                        controller: 'App\\Controller\\PagesController::renderPostRenderlet',
-                        reload: true,
-                        type: 'object',
-                        editmode: editmode
-                    }) }}
+                        {{ pimcore_renderlet('post', {
+                            controller: 'App\\Controller\\PagesController::renderPostRenderlet',
+                            reload: true,
+                            type: 'object',
+                            editmode: editmode,
+                            title: 'Drag and drop a post object here to generate preview'
+                        }) }}
+                    </section>
                 {% endfor %}
-            </div>
+            </article>
         </div>
     </div>
 
